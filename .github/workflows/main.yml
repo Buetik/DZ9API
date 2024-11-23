@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Carsharing API
+  version: 1.0.0
+  description: API для системы каршеринга, включая управление пользователями, оплатой и балансом.
+servers:
+  - url: https://carsharing.example.com/api
+paths:
+  /users/{userId}:
+    get:
+      summary: Получение информации о пользователе
+      description: Получение информации о пользователе, включая его данные и текущий баланс.
+      operationId: getUser Info
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Идентификатор пользователя
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Информация о пользователе успешно получена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    example: "12345"
+                  name:
+                    type: string
+                    example: "Иван Иванов"
+                  email:
+                    type: string
+                    example: "ivan.ivanov@example.com"
+                  phone:
+                    type: string
+                    example: "+7 123 456 78 90"
+                  balance:
+                    type: number
+                    example: 2500
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Пользователь не найден."
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Ошибка сервера. Не удалось получить информацию о пользователе."
